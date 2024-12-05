@@ -1,14 +1,18 @@
-FROM node:22.11
+FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package*.json .
+COPY package*.json ./
+COPY postcss.config.mjs ./
+COPY tailwind.config.ts ./
 
 COPY . .
 
 RUN npm install
 
 EXPOSE 3000
+
+RUN npx tailwindcss init -p
 
 CMD ["npm", "run", "dev"]
 

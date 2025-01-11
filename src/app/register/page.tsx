@@ -1,10 +1,10 @@
-import GrandientBackground from '@/components/SVG/GrandientBackground';
+import GradientBackground from '@/components/SVG/GradientBackground';
 import RegisterFormWrapper from '@/components/ui/forms/register/RegisterFormWrapper';
 
 export default function Register() {
     return (
         <>
-            <GrandientBackground/>
+            <GradientBackground/>
             <div className="min-h-screen flex items-center justify-center">
                 <div className="w-screen h-screen m-0 rounded-none p-6 bg-white
       sm:w-[80%] sm:h-auto sm:rounded-2xl sm:px-[5%] sm:py-[4%]

@@ -1,5 +1,5 @@
 up-dev:
-	docker-compose -f docker-compose.dev.yml up
+	docker-compose -f docker-compose.dev.yml up -d && docker-compose -f docker-compose.dev.yml exec dev sh
 
 down-dev:
 	docker-compose -f docker-compose.dev.yml down

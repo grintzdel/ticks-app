@@ -3,7 +3,7 @@
 import GradientBackground from '@/components/SVG/GradientBackground'
 import RegisterFormWrapper from '@/components/ui/forms/register/RegisterFormWrapper'
 import StepIndicator from '@/components/ui/forms/common/StepIndicator'
-import {REGISTER_STEPS} from '@/components/ui/forms/register/RegisterSteps'
+import {REGISTER_STEPS} from '@/utils/auth/RegisterSteps'
 import {useState} from 'react'
 
 export default function Register() {
@@ -29,7 +29,7 @@ export default function Register() {
               lg:mb-10">
                             {REGISTER_STEPS[currentStep].description}
                         </p>
-                        <RegisterFormWrapper onStepChange={setCurrentStep}/>
+                        <RegisterFormWrapper currentStep={currentStep} onStepChange={setCurrentStep}/>
                     </div>
                 </div>
             </div>

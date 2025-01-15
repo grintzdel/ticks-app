@@ -1,11 +1,18 @@
 'use client'
 
 import {useState, FormEvent} from 'react'
-import FormField from '@/components/ui/forms/common/FormField'
+
+import {RegisterResponse} from '@/actions/auth/register'
+import {addJira} from '@/actions/auth/addJira'
+
 import type {RegisterData} from '@/schemas/auth/register.schema'
+import type {addJiraData} from '@/schemas/auth/addJira.schema'
+
+import FormField from '@/components/ui/forms/common/FormField'
+import PlatformCard from '@/components/ui/forms/register/PlatformCard'
 
 interface RegisterFormProps {
-    onSubmit: (data: RegisterData) => Promise<void>
+    onSubmit: (data: RegisterData) => Promise<RegisterResponse>
     currentStep: number
     setCurrentStep: (step: number) => void
 }
@@ -23,15 +30,36 @@ export default function RegisterForm({onSubmit, currentStep, setCurrentStep}: Re
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
-        if (currentStep < 4) {
-            setCurrentStep(currentStep + 1)
-        } else {
-            await onSubmit({
+
+        if (currentStep === 1) {
+            const registrationData = {
                 firstname: formData.firstname,
                 name: formData.name,
                 email: formData.email,
                 password: formData.password
-            })
+            }
+            const result = await onSubmit(registrationData)
+            if (result.success) {
+                setCurrentStep(2)
+            }
+        } else if (currentStep === 3) {
+            const jiraData: addJiraData = {
+                url: formData.projectUrl,
+                emailjira: formData.accountEmail,
+                token: formData.apiToken
+            }
+            try {
+                const result = await addJira(jiraData)
+                if (result.success) {
+                    setCurrentStep(4)
+                } else {
+                    console.error(result.error)
+                }
+            } catch (error) {
+                console.error('Erreur lors de l\'ajout de Jira:', error)
+            }
+        } else {
+            setCurrentStep(currentStep + 1)
         }
     }
 
@@ -82,18 +110,21 @@ export default function RegisterForm({onSubmit, currentStep, setCurrentStep}: Re
                 )
             case 2:
                 return (
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-5">
+                        <PlatformCard
+                            platformId="jira"
+                            onLink={setCurrentStep}
+                        />
+                        <PlatformCard
+                            platformId="trello"
+                            onLink={setCurrentStep}
+                        />
                         <button
-                            onClick={() => setCurrentStep(3)}
-                            className="w-full p-4 border-2 border-[#007AFF] rounded-xl hover:bg-[#007AFF] hover:text-white transition-colors"
+                            onClick={() => setCurrentStep(4)}
+                            className="text-[#1E1E1E] text-opacity-50 text-lg font-light mt-8 text-start"
+                            type="button"
                         >
-                            Compte Personnel
-                        </button>
-                        <button
-                            onClick={() => setCurrentStep(3)}
-                            className="w-full p-4 border-2 border-[#007AFF] rounded-xl hover:bg-[#007AFF] hover:text-white transition-colors"
-                        >
-                            Compte Professionnel
+                            Ignorer L'étape
                         </button>
                     </div>
                 )

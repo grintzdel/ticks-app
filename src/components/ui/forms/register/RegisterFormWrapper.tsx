@@ -1,15 +1,23 @@
 'use client'
 
-import {useState} from 'react'
-
+import {useState, useEffect} from 'react'
 import RegisterForm from '@/components/ui/forms/register/RegisterForm'
 import FormWrapper from '@/components/ui/forms/common/FormWrapper'
 import {register} from '@/actions/auth/register'
 import type {RegisterData} from '@/schemas/auth/register.schema'
 
-export default function RegisterFormWrapper() {
+interface RegisterFormWrapperProps {
+    onStepChange: (step: number) => void
+}
+
+export default function RegisterFormWrapper({onStepChange}: RegisterFormWrapperProps) {
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState(false)
+    const [currentStep, setCurrentStep] = useState(1)
+
+    useEffect(() => {
+        onStepChange(currentStep)
+    }, [currentStep, onStepChange])
 
     const handleRegister = async (formData: RegisterData) => {
         try {
@@ -31,7 +39,11 @@ export default function RegisterFormWrapper() {
             success={success}
             successMessage="Inscription réussie !"
         >
-            <RegisterForm onSubmit={handleRegister}/>
+            <RegisterForm
+                onSubmit={handleRegister}
+                currentStep={currentStep}
+                setCurrentStep={setCurrentStep}
+            />
         </FormWrapper>
     )
 }

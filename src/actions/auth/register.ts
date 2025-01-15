@@ -1,9 +1,9 @@
 'use server'
 
 import {registerSchema, type RegisterData} from '@/schemas/auth/register.schema'
-import {z} from 'zod'
+import {ZodError} from 'zod'
 
-interface RegisterResponse {
+export interface RegisterResponse {
     success: boolean
     error?: string
 }
@@ -30,7 +30,7 @@ export async function register(formData: RegisterData): Promise<RegisterResponse
 
         return {success: true}
     } catch (error) {
-        if (error instanceof z.ZodError) {
+        if (error instanceof ZodError) {
             return {
                 success: false,
                 error: error.errors[0].message

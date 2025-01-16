@@ -1,14 +1,14 @@
 'use server'
 
-import {addJiraSchema, type addJiraData} from '@/schemas/auth/addJira.schema'
 import {ZodError} from 'zod'
+import {addJiraSchema, type addJiraData} from '@/schemas/auth/addJira.schema'
 
 interface addJiraResponse {
     success: boolean
     error?: string
 }
 
-export async function addJira(formData: addJiraData): Promise<addJiraResponse> {
+export async function addJira(formData: addJiraData, token: string): Promise<addJiraResponse> {
     try {
         const validatedData = addJiraSchema.parse(formData)
 
@@ -16,20 +16,31 @@ export async function addJira(formData: addJiraData): Promise<addJiraResponse> {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify(validatedData)
+            body: JSON.stringify(validatedData),
+            cache: 'no-store'
         })
 
         if (!response.ok) {
-            const errorData = await response.json()
-            return {
-                success: false,
-                error: errorData.message || 'Erreur lors de l\'inscription'
+            const errorText = await response.text()
+            try {
+                const errorData = JSON.parse(errorText)
+                return {
+                    success: false,
+                    error: errorData.message || 'Erreur lors de l\'ajout de Jira'
+                }
+            } catch {
+                return {
+                    success: false,
+                    error: `Erreur ${response.status}`
+                }
             }
         }
 
         return {success: true}
     } catch (error) {
+        console.error('Erreur:', error)
         if (error instanceof ZodError) {
             return {
                 success: false,

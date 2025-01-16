@@ -6,6 +6,7 @@ import {ZodError} from 'zod'
 export interface RegisterResponse {
     success: boolean
     error?: string
+    token?: string
 }
 
 export async function register(formData: RegisterData): Promise<RegisterResponse> {
@@ -20,6 +21,8 @@ export async function register(formData: RegisterData): Promise<RegisterResponse
             body: JSON.stringify(validatedData)
         })
 
+        const data = await response.json()
+
         if (!response.ok) {
             const errorData = await response.json()
             return {
@@ -28,7 +31,10 @@ export async function register(formData: RegisterData): Promise<RegisterResponse
             }
         }
 
-        return {success: true}
+        return {
+            success: true,
+            token: data.token
+        }
     } catch (error) {
         if (error instanceof ZodError) {
             return {

@@ -8,6 +8,7 @@ import {register} from '@/actions/auth/register'
 import type {RegisterData} from '@/schemas/auth/register.schema'
 import {RegisterResponse} from '@/actions/auth/register'
 import {REGISTER_STEPS} from '@/utils/auth/RegisterSteps'
+import {setTempToken} from '@/store/auth/tempToken'
 
 interface RegisterFormWrapperProps {
     currentStep: number
@@ -24,15 +25,10 @@ export default function RegisterFormWrapper({currentStep, onStepChange}: Registe
             setError(null)
             const result = await register(formData)
 
-            if (result.success) {
-                if (currentStep === Object.keys(REGISTER_STEPS).length) {
-                    setSuccess(true)
-                    setTimeout(() => {
-                        router.push('/login')
-                    }, 1500)
-                } else {
-                    onStepChange(currentStep + 1)
-                }
+            if (result.success && result.token) {
+                setTempToken(result.token)
+                onStepChange(currentStep + 1)
+                return result
             } else {
                 setError(result.error || 'Une erreur inconnue est survenue')
             }

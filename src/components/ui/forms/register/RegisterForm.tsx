@@ -11,6 +11,7 @@ import {RegisterResponse} from '@/actions/auth/register'
 import {addJira} from '@/actions/auth/addJira'
 
 import {getTempToken} from '@/store/auth/tempToken'
+import {clearRegistrationState} from '@/store/auth/registrationState'
 
 import FormField from '@/components/ui/forms/common/FormField'
 import PlatformCard from '@/components/ui/forms/register/PlatformCard'
@@ -193,7 +194,10 @@ export default function RegisterForm({onSubmit, currentStep, setCurrentStep}: Re
                             ))}
                         </div>
                         <button
-                            onClick={() => router.push('/login')}
+                            onClick={() => {
+                                clearRegistrationState()
+                                router.push('/login')
+                            }}
                             disabled={!selectedPlan}
                             className={`w-full py-3 px-4 rounded-full transition-all ${
                                 selectedPlan

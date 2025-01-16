@@ -17,7 +17,7 @@ export const REGISTER_STEPS: Record<number, StepContent> = {
         description: "Saisissez l'URL de votre Jira, l'e-mail associé à votre compte, et votre API Token. En quelques instants, Ticks sera synchronisé pour simplifier votre gestion de projet !"
     },
     4: {
-        title: "Dernière étape",
-        description: "Plus que quelques informations et c'est bon !"
+        title: "Passer à une offre suppérieure",
+        description: ""
     }
 }

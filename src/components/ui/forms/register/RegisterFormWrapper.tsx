@@ -9,6 +9,7 @@ import type {RegisterData} from '@/schemas/auth/register.schema'
 import {RegisterResponse} from '@/actions/auth/register'
 import {REGISTER_STEPS} from '@/utils/auth/RegisterSteps'
 import {setTempToken} from '@/store/auth/tempToken'
+import {setRegistrationStep} from '@/store/auth/registrationState'
 
 interface RegisterFormWrapperProps {
     currentStep: number
@@ -27,6 +28,7 @@ export default function RegisterFormWrapper({currentStep, onStepChange}: Registe
 
             if (result.success && result.token) {
                 setTempToken(result.token)
+                setRegistrationStep(currentStep + 1)
                 onStepChange(currentStep + 1)
                 return result
             } else {

@@ -4,11 +4,22 @@ import GradientBackground from '@/components/SVG/GradientBackground'
 import RegisterFormWrapper from '@/components/ui/forms/register/RegisterFormWrapper'
 import StepIndicator from '@/components/ui/forms/common/StepIndicator'
 import {REGISTER_STEPS} from '@/utils/auth/RegisterSteps'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
+import { getTempToken } from '@/store/auth/tempToken'
+import { getRegistrationStep } from '@/store/auth/registrationState'
 
 export default function Register() {
     const [currentStep, setCurrentStep] = useState(1)
     const currentStepData = REGISTER_STEPS[currentStep]
+
+    useEffect(() => {
+        const savedStep = getRegistrationStep()
+        const tempToken = getTempToken()
+        
+        if (savedStep && tempToken) {
+            setCurrentStep(savedStep)
+        }
+    }, [])
 
     return (
         <>

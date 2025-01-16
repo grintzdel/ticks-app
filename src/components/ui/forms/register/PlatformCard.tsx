@@ -15,7 +15,7 @@ export default function PlatformCard({platformId, onLink}: PlatformCardProps) {
 
     return (
         <div
-            className="flex items-center justify-between py-3 px-2 border-[#D0D5DD] rounded-lg bg-[#F9F8FF] bg-opacity-90">
+            className="flex items-center justify-between py-3 px-2 border border-[#D0D5DD] rounded-lg bg-[#F9F8FF] bg-opacity-90">
             <div className="flex items-center gap-5">
                 <Logo className="w-14 h-14"/>
                 <span className="text-lg font-semibold">{platform.name}</span>

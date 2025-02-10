@@ -1,6 +1,4 @@
-interface LogoProps {
-    className?: string
-}
+import {LogoProps} from "@/components/SVG/logos/LogoProps";
 
 export default function TrelloLogo({className}: LogoProps) {
     return (

@@ -1,5 +1,7 @@
 import {platforms} from '@/utils/auth/platformsData'
 
+import SubmitButton from '@/components/ui/buttons/auth/SubmitButton'
+
 interface PlatformCardProps {
     platformId: keyof typeof platforms
     onLink: (nextStep: number) => void
@@ -20,12 +22,7 @@ export default function PlatformCard({platformId, onLink}: PlatformCardProps) {
                 <Logo className="w-14 h-14"/>
                 <span className="text-lg font-semibold">{platform.name}</span>
             </div>
-            <button
-                onClick={handleClick}
-                className="px-6 py-2 text-white border-none rounded-full text-[15px] bg-[#3772D9] font-semibold"
-            >
-                Lier
-            </button>
+            <SubmitButton text="Lier" variant="rounded" type="button" onClick={handleClick} />
         </div>
     )
 }

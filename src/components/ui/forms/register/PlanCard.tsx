@@ -37,7 +37,7 @@ export default function PlanCard({
         <div
             onClick={() => onSelect(id)}
             className={`py-8 px-5 rounded-xl border cursor-pointer transition-all duration-200 hover:shadow-md ${
-                recommended ? 'border-blue-500 border-2' : 'border-gray-200'
+                recommended ? 'border-[#E7E7E8] border-[0.77px] shadow-premium' : 'border-[#E7E7E8]'
             } ${getOpacityClass()}`}
         >
             <h3 className="text-2xl font-bold mb-1">{name}</h3>

@@ -3,6 +3,7 @@
 import {useState, FormEvent} from 'react'
 
 import {useRouter} from 'next/navigation'
+import Link from 'next/link'
 
 import type {RegisterData} from '@/schemas/auth/register.schema'
 import type {addJiraData} from '@/schemas/auth/addJira.schema'
@@ -11,11 +12,12 @@ import {RegisterResponse} from '@/actions/auth/register'
 import {addJira} from '@/actions/auth/addJira'
 
 import {getTempToken} from '@/store/auth/tempToken'
-import {clearRegistrationState} from '@/store/auth/registrationState'
 
 import FormField from '@/components/ui/forms/common/FormField'
 import PlatformCard from '@/components/ui/forms/register/PlatformCard'
 import PlanCard from '@/components/ui/forms/register/PlanCard'
+import SubmitButton from '@/components/ui/buttons/auth/SubmitButton'
+import FinalStepButton from '@/components/ui/buttons/auth/FinalStepButton'
 
 import {SUBSCRIPTION_PLANS} from '@/utils/auth/planData'
 
@@ -84,46 +86,52 @@ export default function RegisterForm({onSubmit, currentStep, setCurrentStep}: Re
         switch (currentStep) {
             case 1:
                 return (
-                    <form onSubmit={handleSubmit}>
-                        <FormField
-                            label="Prénom"
-                            type="text"
-                            value={formData.firstname}
-                            onChange={(e) => setFormData({...formData, firstname: e.target.value})}
-                            placeholder="Jean"
-                            required
-                        />
-                        <FormField
-                            label="Nom"
-                            type="text"
-                            value={formData.name}
-                            onChange={(e) => setFormData({...formData, name: e.target.value})}
-                            placeholder="Dupont"
-                            required
-                        />
-                        <FormField
-                            label="Email"
-                            type="email"
-                            value={formData.email}
-                            onChange={(e) => setFormData({...formData, email: e.target.value})}
-                            placeholder="Exemple@gmail.com"
-                            required
-                        />
-                        <FormField
-                            label="Mot de passe"
-                            type="password"
-                            value={formData.password}
-                            onChange={(e) => setFormData({...formData, password: e.target.value})}
-                            placeholder="Au moins 8 caractères"
-                            required
-                        />
-                        <button
-                            type="submit"
-                            className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-                        >
-                            S'inscrire
-                        </button>
-                    </form>
+                    <>
+                        <form onSubmit={handleSubmit}>
+                            <FormField
+                                label="Prénom"
+                                type="text"
+                                value={formData.firstname}
+                                onChange={(e) => setFormData({...formData, firstname: e.target.value})}
+                                placeholder="Jean"
+                                required
+                            />
+                            <FormField
+                                label="Nom"
+                                type="text"
+                                value={formData.name}
+                                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                placeholder="Dupont"
+                                required
+                            />
+                            <FormField
+                                label="Email"
+                                type="email"
+                                value={formData.email}
+                                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                placeholder="Exemple@gmail.com"
+                                required
+                            />
+                            <FormField
+                                label="Mot de passe"
+                                type="password"
+                                value={formData.password}
+                                onChange={(e) => setFormData({...formData, password: e.target.value})}
+                                placeholder="Au moins 8 caractères"
+                                required
+                            />
+                            <SubmitButton text="S'inscrire" variant="full"/>
+                        </form>
+                        <p className="text-center mt-6 text-[#313957] text-xl">
+                            Avez-vous un compte ? {' '}
+                            <Link
+                                href="/login"
+                                className="text-[#313957] text-xl underline"
+                            >
+                                Connectez-vous
+                            </Link>
+                        </p>
+                    </>
                 )
             case 2:
                 return (
@@ -136,13 +144,12 @@ export default function RegisterForm({onSubmit, currentStep, setCurrentStep}: Re
                             platformId="trello"
                             onLink={setCurrentStep}
                         />
-                        <button
-                            onClick={() => setCurrentStep(4)}
-                            className="text-[#1E1E1E] text-opacity-50 text-lg font-light mt-8 text-start"
+                        <SubmitButton
+                            text="Ignorer l'étape"
                             type="button"
-                        >
-                            Ignorer L'étape
-                        </button>
+                            variant="blank"
+                            onClick={() => setCurrentStep(4)}
+                        />
                     </div>
                 )
             case 3:
@@ -172,12 +179,7 @@ export default function RegisterForm({onSubmit, currentStep, setCurrentStep}: Re
                             placeholder="Votre token API"
                             required
                         />
-                        <button
-                            type="submit"
-                            className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-                        >
-                            Continuer
-                        </button>
+                        <SubmitButton text="Continuer" variant="full"/>
                     </form>
                 )
             case 4:
@@ -193,20 +195,7 @@ export default function RegisterForm({onSubmit, currentStep, setCurrentStep}: Re
                                 />
                             ))}
                         </div>
-                        <button
-                            onClick={() => {
-                                clearRegistrationState()
-                                router.push('/login?fromRegistration=true')
-                            }}
-                            disabled={!selectedPlan}
-                            className={`w-full py-3 px-4 rounded-full transition-all ${
-                                selectedPlan
-                                    ? 'bg-blue-500 text-white hover:bg-blue-600'
-                                    : 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-50 blur-[0.3px]'
-                            }`}
-                        >
-                            Valider
-                        </button>
+                        <FinalStepButton selectedPlan={selectedPlan}/>
                     </div>
                 )
         }

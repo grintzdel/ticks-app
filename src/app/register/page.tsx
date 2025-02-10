@@ -5,8 +5,8 @@ import RegisterFormWrapper from '@/components/ui/forms/register/RegisterFormWrap
 import StepIndicator from '@/components/ui/forms/common/StepIndicator'
 import {REGISTER_STEPS} from '@/utils/auth/RegisterSteps'
 import {useState, useEffect} from 'react'
-import { getTempToken } from '@/store/auth/tempToken'
-import { getRegistrationStep } from '@/store/auth/registrationState'
+import {getTempToken} from '@/store/auth/tempToken'
+import {getRegistrationStep} from '@/store/auth/registrationState'
 
 export default function Register() {
     const [currentStep, setCurrentStep] = useState(1)
@@ -15,7 +15,7 @@ export default function Register() {
     useEffect(() => {
         const savedStep = getRegistrationStep()
         const tempToken = getTempToken()
-        
+
         if (savedStep && tempToken) {
             setCurrentStep(savedStep)
         }

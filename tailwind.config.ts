@@ -6,6 +6,9 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ['var(--font-public-sans)']
+      },
+      boxShadow: {
+        'premium': '0px 3.07px 13px rgba(46, 94, 199, 0.8)',
       }
     },
   },

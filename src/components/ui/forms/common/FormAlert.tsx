@@ -8,7 +8,7 @@ export default function FormAlert({type, message}: FormAlertProps) {
     const textColor = type === 'error' ? 'text-red-700' : 'text-green-700'
 
     return (
-        <div className={`mb-4 p-3 ${bgColor} ${textColor} rounded`}>
+        <div className={`mb-4 p-3 ${bgColor} ${textColor} rounded-sm`}>
             {message}
         </div>
     )

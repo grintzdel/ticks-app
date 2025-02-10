@@ -1,4 +1,4 @@
-export type ButtonVariant = 'full' | 'rounded' | 'blank'
+export type ButtonVariant = 'full' | 'rounded-sm' | 'blank'
 
 interface SubmitButtonProps {
     text: string
@@ -21,7 +21,7 @@ export default function SubmitButton({
         switch (variant) {
             case 'full':
                 return 'w-full rounded-[14px] font-semibold text-[23px] py-3 px-4'
-            case 'rounded':
+            case 'rounded-sm':
                 return 'w-auto rounded-full py-[7px] px-[25px] font-semibold text-[15px]'
             case 'blank':
                 return 'text-start text-[18px] text-[#1E1E1E] text-opacity-50 font-light mt-[30px]'    

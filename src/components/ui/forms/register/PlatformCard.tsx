@@ -22,7 +22,7 @@ export default function PlatformCard({platformId, onLink}: PlatformCardProps) {
                 <Logo className="w-14 h-14"/>
                 <span className="text-lg font-semibold">{platform.name}</span>
             </div>
-            <SubmitButton text="Lier" variant="rounded" type="button" onClick={handleClick} />
+            <SubmitButton text="Lier" variant="rounded-sm" type="button" onClick={handleClick} />
         </div>
     )
 }

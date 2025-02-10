@@ -1,11 +1,13 @@
-import type {Metadata} from "next";
-import {Public_Sans} from "next/font/google";
-import "./globals.css";
+import React from "react";
+
+import type {Metadata} from "next"
+import {Public_Sans} from "next/font/google"
+import "./globals.css"
 
 export const metadata: Metadata = {
     title: "Ticks - Solution IA pour la création de tickets",
     description: "Créez des tickets, gérez vos issues et synchronisez-les avec Jira ou Trello.",
-};
+}
 
 const publicSans = Public_Sans({
     subsets: ["latin"],
@@ -15,12 +17,14 @@ const publicSans = Public_Sans({
 
 export default function RootLayout({
                                        children,
-                                   }: Readonly<{
-    children: React.ReactNode;
-}>) {
+                                   }: {
+    children: React.ReactNode
+}) {
     return (
         <html lang="fr" className={`${publicSans.variable}`}>
-        <body>{children}</body>
+        <body>
+        {children}
+        </body>
         </html>
-    );
+    )
 }

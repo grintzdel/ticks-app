@@ -1,7 +1,7 @@
 'use client'
 
 import React, {useState} from 'react'
-import TogglePasswdVisibility from '@/components/SVG/TogglePasswdVisibility'
+import TogglePasswdVisibility from '@/components/SVG/icons/TogglePasswdVisibility'
 
 interface FormFieldProps {
     label: string

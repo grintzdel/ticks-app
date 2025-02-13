@@ -1,3 +1,3 @@
 import {SVGTypes} from "@/components/SVG/types";
 
-export type LogoProps = SVGTypes;
+export type IconsProps = SVGTypes;

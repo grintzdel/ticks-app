@@ -1,4 +1,6 @@
-export default function CrossIcon({className = ''}) {
+import { IconsProps } from "./IconsProps";
+
+export default function CrossIcon({className}: IconsProps) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

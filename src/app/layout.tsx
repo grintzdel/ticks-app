@@ -3,6 +3,7 @@ import React from "react";
 import type {Metadata} from "next"
 import {Public_Sans} from "next/font/google"
 import "./globals.css"
+import {Toaster} from "sonner";
 
 export const metadata: Metadata = {
     title: "Ticks - Solution IA pour la création de tickets",
@@ -24,6 +25,7 @@ export default function RootLayout({
         <html lang="fr" className={`${publicSans.variable}`}>
         <body>
         {children}
+        <Toaster/>
         </body>
         </html>
     )

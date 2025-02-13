@@ -1,4 +1,4 @@
-import GradientBackground from '@/components/SVG/GradientBackground';
+import GradientBackground from '@/components/SVG/background/GradientBackground';
 import LoginFormWrapper from '@/components/ui/forms/login/LoginFormWrapper';
 
 export default function Register() {

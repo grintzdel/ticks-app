@@ -1,6 +1,6 @@
 'use client'
 
-import GradientBackground from '@/components/SVG/GradientBackground'
+import GradientBackground from '@/components/SVG/background/GradientBackground'
 import RegisterFormWrapper from '@/components/ui/forms/register/RegisterFormWrapper'
 import StepIndicator from '@/components/ui/forms/common/StepIndicator'
 import {REGISTER_STEPS} from '@/utils/auth/RegisterSteps'

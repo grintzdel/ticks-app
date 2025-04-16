@@ -28,7 +28,7 @@ export default function Register() {
                 <div className="w-screen h-screen m-0 rounded-none p-6 bg-white
                     sm:w-[80%] sm:h-auto sm:rounded-2xl sm:px-[5%] sm:py-[4%]
                     md:w-[70%] md:px-[8%] md:py-[4%]
-                    lg:w-[44%] lg:px-[8%] lg:py-[5%] shadow-2xl">
+                    lg:w-[44%] lg:px-[3%] lg:py-[3%] shadow-2xl">
                     <div className="flex flex-col justify-center w-full h-full">
                         <StepIndicator currentStep={currentStep} totalSteps={4}/>
                         <h1 className="text-2xl font-bold mb-6

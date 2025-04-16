@@ -1,7 +1,8 @@
 import GradientBackground from '@/components/SVG/background/GradientBackground';
 import LoginFormWrapper from '@/components/ui/forms/login/LoginFormWrapper';
+import { Suspense } from 'react';
 
-export default function Register() {
+export default function LoginPage() {
     return (
         <>
             <GradientBackground/>
@@ -22,7 +23,9 @@ export default function Register() {
                             Aujourd'hui est un nouveau jour. C'est ton jour. Tu le façonnes. Connecte-toi pour commencer
                             à gérer tes projets.
                         </p>
-                        <LoginFormWrapper/>
+                        <Suspense fallback={<p>Chargement...</p>}>
+                            <LoginFormWrapper/>
+                        </Suspense>
                     </div>
                 </div>
             </div>

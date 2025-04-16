@@ -77,7 +77,7 @@ export function CreateProjectDialog({open, onOpenChange, platforms, onSuccess}: 
             const result = await createProject(formattedData)
 
             if (result.success) {
-                toast.success("Projet ajouté avec succès")
+                setTimeout(() => toast.success("Projet ajouté avec succès"), 0)
                 onSuccess?.()
                 onOpenChange(false)
                 form.reset()
@@ -86,12 +86,12 @@ export function CreateProjectDialog({open, onOpenChange, platforms, onSuccess}: 
                     ? "Ce projet existe déjà dans votre compte"
                     : result.error || "Erreur lors de la création du projet"
 
-                toast.error("Erreur", {
+                setTimeout(() => toast.error("Erreur", {
                     description: errorMessage
-                })
+                }), 0)
             }
         } catch (error) {
-            toast.error("Erreur lors de la création du projet")
+            setTimeout(() => toast.error("Erreur lors de la création du projet"), 0)
         } finally {
             setIsLoading(false)
         }

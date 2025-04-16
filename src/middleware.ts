@@ -5,6 +5,10 @@ export function middleware(request: NextRequest) {
     const token = request.cookies.get('token')?.value
     const {pathname} = request.nextUrl
 
+    if (pathname.startsWith('/chatbot/')) {
+        return NextResponse.next();
+    }
+
     if (token && ['/login', '/register'].includes(pathname)) {
         return NextResponse.redirect(new URL('/', request.url))
     }

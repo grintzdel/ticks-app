@@ -3,7 +3,6 @@
 import {useState} from "react"
 import {Plus, Loader2} from "lucide-react"
 
-
 import {CreateProjectDialog} from "@/components/ui/dialog/create-project-dialog"
 import {
     Sidebar,
@@ -24,6 +23,7 @@ import {useProjects} from "@/hooks/useProjects";
 import {usePlatforms} from "@/hooks/usePlatforms";
 
 import {logout} from "@/actions/auth/logout";
+import Link from "next/link";
 
 export function AppSidebar() {
     const {projects, isLoading: projectsLoading, refreshProjects} = useProjects()
@@ -47,9 +47,9 @@ export function AppSidebar() {
 
                         <SidebarMenu>
                             <SidebarMenuItem platform="jira">
-                                <a href="/create-ticket/example">
+                                <Link href="/">
                                     Model Ticks
-                                </a>
+                                </Link>
                             </SidebarMenuItem>
                         </SidebarMenu>
 
@@ -60,9 +60,9 @@ export function AppSidebar() {
                                 <SidebarGroupContent>
                                     <SidebarMenu>
                                         <SidebarMenuItem platform={project.type.toLowerCase()}>
-                                            <a href={`/create-ticket/${project.info.account}/${project.id}`}>
+                                            <Link href={`/ticket/${project.id}`}>
                                                 {project.info.issues}
-                                            </a>
+                                            </Link>
                                         </SidebarMenuItem>
                                     </SidebarMenu>
                                 </SidebarGroupContent>
